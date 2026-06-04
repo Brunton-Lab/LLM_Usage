@@ -1,0 +1,13 @@
+# Hydra root config. Every value here can be overridden on the CLI, e.g.:
+#   python -m your_package.main seed=123 name=ada
+#
+# To add config groups, create configs/<group>/<option>.yaml and list the
+# chosen defaults here. `_self_` controls where this file's values are merged
+# relative to the groups (keep it first to let groups override these defaults):
+#
+# defaults:
+#   - _self_
+#   - experiment: base   # loads configs/experiment/base.yaml
+
+seed: 0
+name: world

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "your_package"
+description = "A short description of your project."  # TODO: fill in
+authors = [{ name = "Your Name", email = "you@example.com" }]  # TODO: fill in
+readme = "README.md"
+requires-python = ">=3.12"
+dynamic = ["version"]
+dependencies = [
+    "hydra-core",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[project.scripts]
+your-package = "your_package.main:main"
+
+[tool.hatch.version]
+path = "src/your_package/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/your_package"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# E/W: pycodestyle, F: pyflakes, I: isort, UP: pyupgrade, B: bugbear
+select = ["E", "W", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

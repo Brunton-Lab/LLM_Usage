@@ -1,0 +1,12 @@
+# Conda supplies the Python interpreter + uv; uv installs the package and its deps.
+#   conda env create -f environment.yaml
+#   conda activate your_package
+#   uv pip install --python "$CONDA_PREFIX/bin/python" -e ".[dev]"
+# The explicit --python points uv at the active conda env, so a stray .venv or a
+# leftover VIRTUAL_ENV can't redirect the install.
+name: your_package
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - uv
