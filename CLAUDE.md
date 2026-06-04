@@ -75,6 +75,9 @@ Load the relevant one before doing that kind of work:
 - **writing-experiments** — conventions for research/experiment code and reproducibility.
 - **bash-safety** — common bash footguns (`rm`, globs, redirection, git) and how to avoid
   them; load before destructive commands. Full reference: `docs/bash-safety.md`.
+- **prompting-conventions** — how to frame a task/prompt for a coding agent (plan first, clear
+  outcome, acceptance criteria, scope, verification). Full reference:
+  `docs/prompting-conventions.md`.
 
 ## Optional: superpowers plugin
 

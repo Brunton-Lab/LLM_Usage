@@ -16,9 +16,9 @@ management, `pytest`/`ruff`, and a `.claude/` folder of conventions and starter 
 
 ```
 .claude/skills/   project-conventions, new-project-setup, authoring-skills,
-                  writing-experiments, bash-safety
+                  writing-experiments, bash-safety, prompting-conventions
 configs/          Hydra config (config.yaml + paths/ group: default + template)
-docs/             reference docs (docs/bash-safety.md — common shell footguns)
+docs/             reference docs (bash-safety, prompting-conventions)
 src/your_package/ the importable package (rename this): main.py entrypoint + utils/
 pyproject.toml    metadata, deps (hydra-core), ruff + pytest config
 environment.yaml  conda env (Python 3.12 + uv); uv installs the package
