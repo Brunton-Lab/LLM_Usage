@@ -16,20 +16,29 @@ before mass-renaming.
 
 ## 2. Rename the `your_package` token
 
-Rename the package directory, then replace the token everywhere it appears.
+Rename the package directory, then replace the token everywhere it appears — **except this
+setup skill**, which must keep the literal `your_package` so it stays reusable for the next
+project. (The other skills are project docs and get renamed normally.)
 
 ```bash
 NEW=your_real_name            # <-- set this
 
 git mv src/your_package "src/$NEW"
-# Replace the token in all tracked text files (review the diff before committing):
-grep -rl --exclude-dir=.git "your_package" . | xargs sed -i "s/your_package/$NEW/g"
+# Replace the token in all tracked text files, EXCLUDING this setup skill itself.
+# Review the diff before committing.
+grep -rl --exclude-dir=.git "your_package" . \
+  | grep -v '\.claude/skills/new-project-setup/' \
+  | xargs -r sed -i "s/your_package/$NEW/g"
 # The console script in pyproject also uses a dash form; fix it to match:
 sed -i "s/your-package/${NEW//_/-}/g" pyproject.toml README.md CLAUDE.md
 ```
 
-Check nothing was missed: `grep -rn --exclude-dir=.git "your_package\|your-package" .` should
-return nothing.
+Check nothing was missed (the setup skill keeps the token on purpose, so exclude it):
+
+```bash
+grep -rn --exclude-dir=.git "your_package\|your-package" . \
+  | grep -v '\.claude/skills/new-project-setup/'      # should print nothing
+```
 
 ## 3. Fill in placeholders
 

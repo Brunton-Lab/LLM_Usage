@@ -14,13 +14,14 @@
 #     to stay absolute; here you pin real locations instead.)
 
 user: ${oc.env:USER}
+package_name: your_package
 
 # Absolute path to where you cloned this repository.
 project_dir: "/CHANGEME/path/to/your_package"
 
 # Where run outputs (logs, checkpoints, figures) go. Point this at large/scratch
 # storage on a cluster, e.g. "/scratch/${paths.user}/your_package/${version}".
-base_dir: "/CHANGEME/scratch/${paths.user}/your_package/${version}"
+base_dir: "/CHANGEME/scratch/${paths.user}/${paths.package_name}/${version}"
 save_dir: ${multirun_save_dir:${paths.base_dir},${run_id}}
 log_dir:  "${paths.save_dir}/logs"
 ckpt_dir: "${paths.save_dir}/ckpt"
