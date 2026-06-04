@@ -17,9 +17,9 @@ management, `pytest`/`ruff`, and a `.claude/` folder of conventions and starter 
 ```
 .claude/skills/   project-conventions, new-project-setup, authoring-skills,
                   writing-experiments, bash-safety
-configs/          Hydra config (configs/config.yaml)
+configs/          Hydra config (config.yaml + paths/ group: default + template)
 docs/             reference docs (docs/bash-safety.md — common shell footguns)
-src/your_package/ the importable package (rename this) + example Hydra entrypoint
+src/your_package/ the importable package (rename this): main.py entrypoint + utils/
 pyproject.toml    metadata, deps (hydra-core), ruff + pytest config
 environment.yaml  conda env (Python 3.12 + uv); uv installs the package
 CLAUDE.md         always-on guidance + an index of the skills above

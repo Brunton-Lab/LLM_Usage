@@ -46,6 +46,12 @@ docs/               optional longer-form docs
 - Override on the CLI rather than editing files for one-off runs:
   `python -m your_package.main model=large seed=7`.
 - Don't read environment variables or hard-code paths in code that a config value could carry.
+- **Paths:** the `paths` group (`configs/paths/`) holds output/data locations. The portable
+  `default.yaml` keeps runs under the git-ignored `outputs/`; add a machine-specific
+  `configs/paths/<machine>.yaml` (copy `template.yaml`) and pick it with `paths=<machine>`.
+- **Custom resolvers:** project-specific OmegaConf resolvers (e.g. `multirun_save_dir`) live in
+  `src/your_package/utils/path_utils.py` and register on import — so `main.py` imports the
+  package before Hydra composes a config.
 
 ## Functions, files, and size
 

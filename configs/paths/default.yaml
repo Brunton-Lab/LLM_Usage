@@ -1,0 +1,25 @@
+# Portable default paths — no machine-specific entries, so the template runs
+# anywhere out of the box. Runs write under the repo's (git-ignored) outputs/.
+#
+# For a real machine/cluster, copy configs/paths/template.yaml to
+# configs/paths/<machine>.yaml, fill in absolute paths, and select it with:
+#   python -m your_package.main paths=<machine>
+
+user: ${oc.env:USER}
+
+# `project_dir` is the repo root (the dir containing pyproject.toml), resolved
+# from the package location by the `repo_root` resolver in utils.path_utils.
+# It's independent of cwd and of Hydra, so it works in single runs and in
+# --multirun sweeps (where ${hydra:runtime.cwd} is not yet available).
+project_dir: ${repo_root:}
+
+# Run outputs live under <repo>/outputs/<version>/<run_id>/ (git-ignored).
+# `save_dir` is multirun-aware (see register_custom_resolvers in utils.path_utils).
+base_dir: "${paths.project_dir}/outputs/${version}"
+save_dir: ${multirun_save_dir:${paths.base_dir},${run_id}}
+log_dir:  "${paths.save_dir}/logs"
+ckpt_dir: "${paths.save_dir}/ckpt"
+fig_dir:  "${paths.save_dir}/figures"
+
+# Inputs (datasets, etc.) default to <repo>/data.
+data_dir: "${paths.project_dir}/data"

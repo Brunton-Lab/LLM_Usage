@@ -29,6 +29,7 @@ The package exposes a Hydra entrypoint:
 ```bash
 python -m your_package.main             # runs with configs/config.yaml
 python -m your_package.main seed=123    # override any config value on the CLI
+python -m your_package.main run_id=exp1 # name the run; outputs -> outputs/<version>/<run_id>/
 ```
 
 ## Configs
@@ -36,6 +37,13 @@ python -m your_package.main seed=123    # override any config value on the CLI
 Run parameters live in `configs/` and are managed by **Hydra**. Override values on the CLI;
 add config groups as `configs/<group>/<option>.yaml`. Hydra writes the fully-resolved config
 for each run into that run's output dir, so results are reproducible from disk.
+
+- **`configs/paths/`** carries output/data locations. The portable `default.yaml` writes runs
+  under the git-ignored `outputs/<version>/<run_id>/`; copy `paths/template.yaml` to
+  `paths/<machine>.yaml` for absolute/cluster paths and select it with `paths=<machine>`.
+- **`version`** groups related runs; **`run_id`** names a single run (both CLI-overridable).
+- Custom path resolvers (e.g. `multirun_save_dir`) live in `your_package.utils.path_utils` and
+  register on import.
 
 ## Testing
 

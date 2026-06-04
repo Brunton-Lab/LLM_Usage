@@ -1,13 +1,33 @@
 # Hydra root config. Every value here can be overridden on the CLI, e.g.:
 #   python -m your_package.main seed=123 name=ada
+#   python -m your_package.main run_id=exp1 version=v2
+#   python -m your_package.main paths=template     # pick a configs/paths/<machine>.yaml
 #
-# To add config groups, create configs/<group>/<option>.yaml and list the
-# chosen defaults here. `_self_` controls where this file's values are merged
-# relative to the groups (keep it first to let groups override these defaults):
-#
-# defaults:
-#   - _self_
-#   - experiment: base   # loads configs/experiment/base.yaml
+# Config groups live in configs/<group>/<option>.yaml and are selected in the
+# `defaults` list below. `_self_` is first so groups can override these base values.
+defaults:
+  - _self_
+  - paths: default
 
 seed: 0
 name: world
+
+# Run identification. `version` groups related runs; `run_id` names a single run.
+# Paths in configs/paths/ interpolate these:
+#   base_dir = .../${version}      save_dir = ${base_dir}/${run_id}
+version: v0
+run_id: debug
+
+# Hydra configuration
+hydra:
+  job:
+      config:
+        override_dirname:
+          exclude_keys:
+            - paths
+
+  run:
+    dir: ${paths.base_dir}/${run_id}
+  sweep:
+    dir: ${paths.base_dir}/${run_id}
+    subdir: ${hydra.job.override_dirname}
