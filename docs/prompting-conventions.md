@@ -18,6 +18,7 @@ what a task is missing and ask before guessing.
 Before sending a non-trivial prompt:
 
 - [ ] Started with a plan (plan mode) for non-trivial work
+- [ ] 2–3 approaches with trade-offs + a recommendation (when multiple reasonable ways)
 - [ ] Goal stated as an outcome (what should be true when done)
 - [ ] Context + file paths the agent can't infer
 - [ ] Acceptance criteria / definition of done
@@ -42,7 +43,20 @@ Strong: We want to cache the /search endpoint. First plan it: which cache (in-me
         where it lives, and how it's invalidated — show me the approach before coding.
 ```
 
-### 2. Goal as an outcome, not just an action
+### 2. Propose 2-3 approaches with trade-offs and a recommendation
+
+When a task can reasonably be solved more than one way, lay out 2-3 options with their trade-offs
+and lead with the one you'd choose and why — before committing to an implementation. This makes
+the decision reviewable and often surfaces a better option than the first idea. Don't silently
+pick one, and don't dump every possibility without a recommendation.
+
+```text
+Weak:   Add a background job queue, you decide how.
+Strong: Propose 2-3 ways to add a background job queue (e.g. a thread pool, RQ/Redis, Celery)
+        with trade-offs for our single-box scale, and recommend one — then we'll build it.
+```
+
+### 3. Goal as an outcome, not just an action
 
 Say what should be *true* when the task is done, not only the action to take. Outcomes are
 checkable; bare actions leave the target ambiguous.
@@ -53,7 +67,7 @@ Strong: Split auth.py so the token logic and the HTTP handlers live in separate 
         no change in behavior and all existing tests still passing.
 ```
 
-### 3. Give context the agent can't see
+### 4. Give context the agent can't see
 
 Point at the files, the relevant code, the constraints, and the reason behind the task. The
 agent can read the repo, but telling it where to look (and why) avoids wrong guesses.
@@ -64,7 +78,7 @@ Strong: parse_events() in src/pkg/parser.py is O(n^2) — it re-scans `seen` eac
         Make it linear; inputs can be ~1e6 rows. Keep the public signature unchanged.
 ```
 
-### 4. Acceptance criteria / definition of done
+### 5. Acceptance criteria / definition of done
 
 State how success is judged, including edge cases. This is the agent's target and your review
 rubric.
@@ -75,7 +89,7 @@ Strong: Reject input without a single @ and a dot in the domain; trim whitespace
         shows "required". Done when tests cover valid, missing-@, and empty cases.
 ```
 
-### 5. Bound the scope
+### 6. Bound the scope
 
 Say what *not* to touch. Agents otherwise "helpfully" refactor adjacent code, widening the diff
 and the risk.
@@ -86,7 +100,7 @@ Strong: Only extract the chart legend into its own component. Don't touch data f
         styling, or any other component.
 ```
 
-### 6. Specify verification — evidence over assertions
+### 7. Specify verification — evidence over assertions
 
 Say how the change should be checked, and ask for the evidence (test output, run logs), not a
 claim that it works.
@@ -97,7 +111,7 @@ Strong: Add a test in tests/test_parser.py and run `pytest -k parser`; paste the
         run `python -m pkg.main` on sample.csv and show the result.
 ```
 
-### 7. Right-size the task
+### 8. Right-size the task
 
 Keep a prompt to one coherent change; break big asks into ordered steps. A giant prompt yields a
 giant, hard-to-review diff.
@@ -108,7 +122,7 @@ Strong: Step 1 only: email/password signup + login with sessions. Profiles come 
         step 1 first.
 ```
 
-### 8. Show examples / desired patterns
+### 9. Show examples / desired patterns
 
 Give a similar existing function, a preferred style, or sample input/output. Examples pin down
 intent faster than prose.
@@ -119,7 +133,7 @@ Strong: Add retry() mirroring the backoff in src/pkg/net.py (same logging style)
         retry(fetch, attempts=3) returns fetch()'s result, or raises after 3 failures.
 ```
 
-### 9. Iterate with checkpoints
+### 10. Iterate with checkpoints
 
 For larger work, review a plan or a small first slice before the agent goes big. Cheap course
 corrections beat one large wrong turn.
@@ -130,7 +144,7 @@ Strong: Convert just the db layer to async and stop; show the diff. Once it look
         do the callers.
 ```
 
-### 10. Give feedback on specifics
+### 11. Give feedback on specifics
 
 When correcting, point to the exact behavior, file, or line, and state expected vs. actual.
 "That's wrong" gives the agent nothing to act on.
