@@ -58,7 +58,7 @@ ruff check . && ruff format --check .
 Create these only when you need them:
 
 - `tests/` with a first smoke test (e.g. assert `hello()` works) — then `pytest`.
-- `docs/` for longer-form docs.
+- `docs/` already ships `bash-safety.md` (keep it); add your project docs alongside it.
 - A `LICENSE` file (ask the user which license).
 
 ## 6. First commit

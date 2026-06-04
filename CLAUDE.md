@@ -51,6 +51,8 @@ ruff check . && ruff format --check .   # lint + format check
 - **Imports:** absolute imports from the package (`from your_package.x import y`).
 - **Units:** small, single-purpose functions/modules; split a file when it starts doing more
   than one thing.
+- **Destructive shell commands** (`rm`, globs, `>`, `git reset/clean/push --force`, …): load
+  the `bash-safety` skill / see `docs/bash-safety.md` and preview before running.
 - For anything deeper — where new code/configs/experiments should go — **load the
   `project-conventions` skill** rather than guessing.
 
@@ -63,6 +65,8 @@ Load the relevant one before doing that kind of work:
   placeholders, create the env).
 - **authoring-skills** — how to write a new project-local skill in this repo.
 - **writing-experiments** — conventions for research/experiment code and reproducibility.
+- **bash-safety** — common bash footguns (`rm`, globs, redirection, git) and how to avoid
+  them; load before destructive commands. Full reference: `docs/bash-safety.md`.
 
 ## Optional: superpowers plugin
 
