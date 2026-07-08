@@ -61,6 +61,20 @@ docs/               optional longer-form docs
   signal to break it into focused modules.
 - Public functions/classes get a short docstring: what it does, args, returns.
 
+## Efficiency & accuracy
+
+- **Prioritize computational efficiency (speed and memory) and numerical accuracy** when
+  choosing algorithms and data structures — this applies to library code and
+  experiment/analysis code alike.
+- Prefer vectorized/batched operations over unnecessary Python-level loops on numerical data;
+  avoid needless copies of large arrays/tensors.
+- Watch for numerical-correctness pitfalls: precision loss, unstable computations, silent
+  dtype casts, off-by-one/edge-case errors in math-heavy code.
+- This doesn't license extra complexity: don't add caching, manual memory tricks, or
+  low-level rewrites without a known bottleneck. The simplest correct approach still wins by
+  default — reach for efficiency only when the algorithm/data-structure choice actually
+  matters.
+
 ## Style & tooling
 
 - `ruff format` for formatting; `ruff check` for linting (config in `pyproject.toml`,

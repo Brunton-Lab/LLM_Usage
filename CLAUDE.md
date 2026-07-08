@@ -61,6 +61,9 @@ ruff check . && ruff format --check .   # lint + format check
   than one thing.
 - **Destructive shell commands** (`rm`, globs, `>`, `git reset/clean/push --force`, …): load
   the `bash-safety` skill / see `docs/bash-safety.md` and preview before running.
+- **Efficiency & accuracy:** prioritize computational efficiency (speed and memory) and
+  numerical accuracy when writing code — see the `project-conventions` skill for the full
+  principle.
 - For anything deeper — where new code/configs/experiments should go — **load the
   `project-conventions` skill** rather than guessing.
 
